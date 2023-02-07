@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = "TMDB_KMM"
 include(":android")
 include(":shared")
+include(":ios")
