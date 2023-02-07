@@ -26,7 +26,8 @@ kotlin {
         val iosSimulatorArm64Main by getting
         val iosMain by creating {
             dependencies {
-                api(project(":shared"))
+                api(project(":kmm:feature"))
+                api(project(":kmm:shared-ui"))
             }
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
@@ -46,7 +47,8 @@ kotlin {
     targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
         binaries.withType<org.jetbrains.kotlin.gradle.plugin.mpp.Framework> {
             linkerOpts.add("-lsqlite3")
-            export(project(":shared"))
+            export(project(":kmm:feature"))
+            export(project(":kmm:shared-ui"))
         }
     }
 

@@ -46,7 +46,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.yao.tmdb"
+    namespace = "com.yao.tmdb.sharedui"
     compileSdk = 33
     defaultConfig {
         minSdk = 24

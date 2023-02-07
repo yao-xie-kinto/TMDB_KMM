@@ -1,4 +1,4 @@
-package com.yao.tmdb
+package com.yao.tmdb.feature
 
 interface Platform {
     val name: String

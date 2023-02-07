@@ -39,7 +39,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":shared"))
+    implementation(project(":kmm:data"))
+    implementation(project(":kmm:domain"))
+    implementation(project(":kmm:feature"))
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.tooling.preview)

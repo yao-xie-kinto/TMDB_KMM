@@ -1,4 +1,4 @@
-package com.yao.tmdb
+package com.yao.tmdb.feature
 
 class AndroidPlatform : Platform {
     override val name: String = "Android ${android.os.Build.VERSION.SDK_INT}"

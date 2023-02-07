@@ -1,4 +1,4 @@
-package com.yao.tmdb
+package com.yao.tmdb.feature
 
 class Greeting {
     private val platform: Platform = getPlatform()
