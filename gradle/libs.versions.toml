@@ -27,6 +27,7 @@ glideWebDecoder = "2.3.4.14.2"
 junit = "4.13.2"
 mockito = "5.0.0"
 robolectric = "4.9.2"
+sqldelight = "2.0.0-alpha05"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "gradlePlugin" }
@@ -34,6 +35,7 @@ android-library = { id = "com.android.library", version.ref = "gradlePlugin" }
 kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 google-service = { id = "com.google.gms.google-services", version = "4.3.15" }
+sqldelight = { id = "app.cash.sqldelight", version = "2.0.0-alpha05" }
 
 [libraries]
 
@@ -90,6 +92,10 @@ ktor-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ktor-gson = { module = "io.ktor:ktor-serialization-gson", version.ref = "ktor" }
 ktor-logging = { module = "io.ktor:ktor-client-logging-jvm", version.ref = "ktor" }
 ktor-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+
+sqldelight-primitive-adapters = { module = "app.cash.sqldelight:primitive-adapters", version.ref = "sqldelight" }
+sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
+sqldelight-native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
 
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 glide-webdecoder = { module = "com.github.zjupure:webpdecoder", version.ref = "glideWebDecoder" }

@@ -1,0 +1,35 @@
+import kotlin.Boolean;
+import kotlin.Float;
+import kotlin.Int;
+import kotlin.collections.List;
+
+CREATE TABLE Movie (
+    id INTEGER NOT NULL PRIMARY KEY,
+    adult INTEGER AS Boolean NOT NULL DEFAULT 0,
+    backdrop_path TEXT,
+    genre_ids TEXT AS List<Int> NOT NULL,
+    original_language TEXT,
+    original_title TEXT,
+    overview TEXT,
+    popularity REAL AS Float NOT NULL,
+    poster_path TEXT,
+    release_date TEXT,
+    title TEXT,
+    video INTEGER AS Boolean NOT NULL DEFAULT 0,
+    vote_average REAL AS Float NOT NULL,
+    vote_count INTEGER AS Int NOT NULL
+);
+
+selectAll:
+SELECT * FROM Movie;
+
+selectById:
+SELECT * FROM Movie WHERE id = ?;
+
+-- insertIdpInfo:
+-- INSERT INTO Movie(key, clientId, discoveryUri, domain)
+-- VALUES (?, ?, ?, ?)
+-- ON CONFLICT(key) DO UPDATE SET key=excluded.key, clientId=excluded.clientId, discoveryUri=excluded.discoveryUri, domain=excluded.domain;
+--
+-- deleteAll:
+-- DELETE FROM IdpInfoDbModel;
