@@ -14,7 +14,7 @@ CREATE TABLE Movie (
     popularity REAL AS Float NOT NULL,
     poster_path TEXT,
     release_date TEXT,
-    title TEXT,
+    title TEXT NOT NULL,
     video INTEGER AS Boolean NOT NULL DEFAULT 0,
     vote_average REAL AS Float NOT NULL,
     vote_count INTEGER AS Int NOT NULL

@@ -12,6 +12,7 @@
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		497CC013B6615828A58DD041 /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FB303E184A95D19608E8D83 /* Pods_iosApp.framework */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
+		CF7B1C00299B5BD800C73FE0 /* AvoidDispose.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7B1BFF299B5BD800C73FE0 /* AvoidDispose.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9AB917FCB67BD8CD42999A2B /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
+		CF7B1BFF299B5BD800C73FE0 /* AvoidDispose.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvoidDispose.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				7555FF8C242A565B00829871 /* Info.plist */,
 				2152FB032600AC8F00CF470E /* iOSApp.swift */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
+				CF7B1BFF299B5BD800C73FE0 /* AvoidDispose.swift */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -82,7 +85,6 @@
 				9AB917FCB67BD8CD42999A2B /* Pods-iosApp.debug.xcconfig */,
 				35781E7A8199083CB53F2BC7 /* Pods-iosApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -192,6 +194,7 @@
 			files = (
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
+				CF7B1C00299B5BD800C73FE0 /* AvoidDispose.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

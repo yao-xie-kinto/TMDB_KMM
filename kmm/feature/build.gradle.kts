@@ -14,9 +14,18 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
-    
+
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies{
+                implementation(project(":kmm:data"))
+                implementation(project(":kmm:domain"))
+                implementation(libs.kotlin.coroutines)
+                implementation(libs.ktor.core)
+                implementation(libs.koin.core)
+
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))

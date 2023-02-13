@@ -21,6 +21,13 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(libs.sqldelight.primitive.adapters)
+                implementation(libs.ktor.core)
+                implementation(libs.ktor.logging)
+                implementation(libs.ktor.json)
+                implementation(libs.ktor.content.negotiation)
+
+                implementation(libs.koin.core)
+//                implementation(libs.koin.ktor)
             }
         }
         val commonTest by getting {
@@ -31,6 +38,7 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(libs.sqldelight.android.driver)
+                implementation(libs.ktor.okhttp)
             }
         }
         val androidUnitTest by getting
@@ -41,6 +49,7 @@ kotlin {
             dependsOn(commonMain)
             dependencies {
                 implementation(libs.sqldelight.native.driver)
+                implementation(libs.ktor.darwin)
             }
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)

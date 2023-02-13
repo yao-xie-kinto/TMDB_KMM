@@ -1,6 +1,8 @@
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
+    alias(libs.plugins.compse.jb)
 }
 
 kotlin {
@@ -16,7 +18,22 @@ kotlin {
     iosSimulatorArm64()
 
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+                implementation(project(":kmm:data"))
+                implementation(project(":kmm:domain"))
+                implementation(project(":kmm:feature"))
+                implementation(libs.kotlin.coroutines)
+                implementation(libs.koin.core)
+                api(compose.ui)
+                api(compose.foundation)
+                api(compose.material)
+                api(compose.runtime)
+//                api(compose.animation)
+//                implementation(compose.preview)
+                api(libs.precompose)
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
