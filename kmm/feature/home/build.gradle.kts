@@ -20,10 +20,8 @@ kotlin {
             dependencies{
                 implementation(project(":kmm:data"))
                 implementation(project(":kmm:domain"))
-                implementation(libs.kotlin.coroutines)
-                implementation(libs.ktor.core)
-                implementation(libs.koin.core)
-                implementation(libs.precompose)
+                implementation(project(":kmm:feature:base"))
+                implementation(libs.bundles.common)
             }
         }
         val commonTest by getting {
@@ -55,7 +53,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.yao.tmdb.feature"
+    namespace = "com.yao.tmdb.feature.home"
     compileSdk = 33
     defaultConfig {
         minSdk = 24

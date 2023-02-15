@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.LayoutDirection
 import com.yao.tmdb.sharedui.screen.First
+import com.yao.tmdb.sharedui.screen.HomeScreen
 import com.yao.tmdb.sharedui.screen.Third
 import kotlinx.coroutines.launch
 import moe.tlaster.precompose.navigation.NavHost
@@ -75,7 +76,7 @@ internal fun App() {
             Demo.values().forEach { screen ->
                 scene(screen.toString()) {
                     if (screen == Demo.BottomNavigation) {
-                        BottomNavigationDemo()
+                        HomeScreen()
                     } else {
                         Box(
                             modifier = Modifier.padding(

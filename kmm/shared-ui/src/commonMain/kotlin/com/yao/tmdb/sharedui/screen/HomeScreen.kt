@@ -1,4 +1,4 @@
-package com.yao.tmdb.sharedui
+package com.yao.tmdb.sharedui.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -11,14 +11,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.yao.tmdb.sharedui.screen.First
-import com.yao.tmdb.sharedui.screen.Second
-import com.yao.tmdb.sharedui.screen.Third
+import com.yao.tmdb.sharedui.SafeArea
 import moe.tlaster.precompose.navigation.NavHost
 import moe.tlaster.precompose.navigation.rememberNavigator
 
 @Composable
-internal fun BottomNavigationDemo() {
+internal fun HomeScreen() {
     val navigator = rememberNavigator()
     val navBackStackEntry by navigator.currentEntry.collectAsState(null)
     val currentRoute = navBackStackEntry?.route?.route ?: ""

@@ -16,8 +16,8 @@ CREATE TABLE Movie (
     release_date TEXT,
     title TEXT NOT NULL,
     video INTEGER AS Boolean NOT NULL DEFAULT 0,
-    vote_average REAL AS Float NOT NULL,
-    vote_count INTEGER AS Int NOT NULL
+    vote_average REAL AS Float,
+    vote_count INTEGER AS Int
 );
 
 selectAll:

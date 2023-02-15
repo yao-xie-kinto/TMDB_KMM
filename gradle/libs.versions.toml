@@ -127,6 +127,12 @@ mockito-android = { module = "org.mockito:mockito-android", version.ref = "mocki
 precompose = { module = "moe.tlaster:precompose", version = "1.3.14" }
 
 [bundles]
+common = [
+    "kotlin-coroutines",
+    "ktor-core",
+    "koin-core",
+    "precompose"
+]
 ktor = [
     "ktor-gson",
     "ktor-okhttp",

@@ -1,4 +1,4 @@
-package com.yao.tmdb.sharedui
+package com.yao.tmdb.sharedui.screen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
