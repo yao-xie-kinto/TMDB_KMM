@@ -2,7 +2,7 @@ import SwiftUI
 import KMMKit
 
 struct ContentView: View {
-	let greet = Greeting().greet()
+	let greet = "Greetings!"
 
 	var body: some View {
 		Text(greet)

@@ -1,4 +1,4 @@
-package com.yao.tmdb.sharedui.screen
+package com.yao.tmdb.sharedui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -11,12 +11,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.yao.tmdb.sharedui.SafeArea
+import com.yao.tmdb.sharedui.feature.FavouriteScreen
+import com.yao.tmdb.sharedui.feature.HomeScreen
+import com.yao.tmdb.sharedui.feature.SearchScreen
 import moe.tlaster.precompose.navigation.NavHost
 import moe.tlaster.precompose.navigation.rememberNavigator
 
 @Composable
-internal fun HomeScreen() {
+internal fun BottomNavigationView() {
     val navigator = rememberNavigator()
     val navBackStackEntry by navigator.currentEntry.collectAsState(null)
     val currentRoute = navBackStackEntry?.route?.route ?: ""
@@ -62,9 +64,9 @@ internal fun HomeScreen() {
             Tab.values().forEach { screen ->
                 scene(screen.toString()) {
                     when (screen) {
-                        Tab.Tab1 -> First()
-                        Tab.Tab2 -> Second()
-                        Tab.Tab3 -> Third()
+                        Tab.Tab1 -> HomeScreen()
+                        Tab.Tab2 -> SearchScreen()
+                        Tab.Tab3 -> FavouriteScreen()
                     }
                 }
             }

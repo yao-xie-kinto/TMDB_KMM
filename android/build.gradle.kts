@@ -41,7 +41,6 @@ android {
 dependencies {
     implementation(project(":kmm:data"))
     implementation(project(":kmm:domain"))
-    implementation(project(":kmm:feature"))
     implementation(project(":kmm:shared-ui"))
     implementation(libs.kotlin.coroutines)
     implementation(libs.kotlin.coroutines.android)

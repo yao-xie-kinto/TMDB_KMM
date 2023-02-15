@@ -18,14 +18,22 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "TMDB_KMM"
+//Android App
 include(":android")
+//iOS App
 include(":ios")
-include(":kmm:data")
-include(":kmm:domain")
-include(":kmm:feature")
-include(":kmm:feature:base")
-include(":kmm:feature:home")
-include(":kmm:feature:search")
-include(":kmm:feature:favourite")
-include(":kmm:feature:settings")
-include(":kmm:shared-ui")
+//Shared modules
+include(
+    //Data
+    ":kmm:data",
+    //Domain
+    ":kmm:domain",
+    //Features
+    ":kmm:feature:base",
+    ":kmm:feature:home",
+    ":kmm:feature:search",
+    ":kmm:feature:favourite",
+    ":kmm:feature:settings",
+    //UI Wrapper
+    ":kmm:shared-ui"
+)

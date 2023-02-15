@@ -1,4 +1,4 @@
-package com.yao.tmdb.sharedui.screen
+package com.yao.tmdb.sharedui.feature
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -12,14 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
 @Composable
-internal fun Second() {
-    Box(modifier = Modifier.background(Color.Yellow)) {
+internal fun HomeScreen() {
+    Box(modifier = Modifier.background(Color.Red)) {
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Second!")
+            Text("Home!")
         }
     }
 }

@@ -1,6 +1,8 @@
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
+    alias(libs.plugins.compse.jb)
 }
 
 kotlin {
@@ -21,6 +23,12 @@ kotlin {
                 implementation(project(":kmm:data"))
                 implementation(project(":kmm:domain"))
                 implementation(libs.bundles.common)
+                api(compose.ui)
+                api(compose.foundation)
+                api(compose.material)
+                api(compose.runtime)
+                api(compose.animation)
+                api(libs.precompose)
             }
         }
         val commonTest by getting {

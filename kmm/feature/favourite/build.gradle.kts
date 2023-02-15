@@ -1,6 +1,8 @@
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
+    alias(libs.plugins.compse.jb)
 }
 
 kotlin {
