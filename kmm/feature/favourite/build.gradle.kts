@@ -3,6 +3,7 @@ plugins {
     kotlin("multiplatform")
     id("com.android.library")
     alias(libs.plugins.compse.jb)
+    alias(libs.plugins.hyperdrive)
 }
 
 kotlin {
@@ -24,6 +25,7 @@ kotlin {
                 implementation(project(":kmm:domain"))
                 implementation(project(":kmm:feature:base"))
                 implementation(libs.bundles.common)
+                implementation(libs.bundles.compose.extentions)
             }
         }
         val commonTest by getting {

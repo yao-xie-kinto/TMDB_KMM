@@ -3,6 +3,7 @@ plugins {
     kotlin("multiplatform")
     id("com.android.library")
     alias(libs.plugins.compse.jb)
+    alias(libs.plugins.hyperdrive)
 }
 
 kotlin {
@@ -23,6 +24,7 @@ kotlin {
                 implementation(project(":kmm:data"))
                 implementation(project(":kmm:domain"))
                 implementation(libs.bundles.common)
+                implementation(libs.bundles.compose.extentions)
                 api(compose.ui)
                 api(compose.foundation)
                 api(compose.material)

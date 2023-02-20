@@ -19,7 +19,7 @@ internal fun FavouriteScreen() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Home!")
+            Text("Favourite!")
         }
     }
 }

@@ -53,4 +53,5 @@ dependencies {
     implementation(libs.compose.activity)
     implementation(libs.koin.core)
     implementation(libs.koin.android)
+    implementation(libs.precompose)
 }

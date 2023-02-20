@@ -27,14 +27,12 @@ kotlin {
                 implementation(project(":kmm:feature:search"))
                 implementation(project(":kmm:feature:favourite"))
                 implementation(project(":kmm:feature:settings"))
-                implementation(libs.kotlin.coroutines)
-                implementation(libs.koin.core)
+                implementation(libs.bundles.common)
                 api(compose.ui)
                 api(compose.foundation)
                 api(compose.material)
                 api(compose.runtime)
                 api(compose.animation)
-                api(libs.precompose)
             }
         }
         val commonTest by getting {

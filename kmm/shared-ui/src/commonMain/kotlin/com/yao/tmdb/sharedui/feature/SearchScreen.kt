@@ -19,7 +19,7 @@ internal fun SearchScreen() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Home!")
+            Text("Search!")
         }
     }
 }
