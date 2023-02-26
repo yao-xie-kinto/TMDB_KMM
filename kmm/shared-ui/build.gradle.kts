@@ -33,6 +33,7 @@ kotlin {
                 api(compose.material)
                 api(compose.runtime)
                 api(compose.animation)
+                api(libs.image.loader)
             }
         }
         val commonTest by getting {
