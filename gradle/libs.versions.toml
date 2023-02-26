@@ -142,6 +142,8 @@ napier = { module = "io.github.aakira:napier", version = "2.6.1" }
 coil = { module = "io.coil-kt:coil", version = "2.2.2" }
 coil-compose = { module = "io.coil-kt:coil-compose", version = "2.2.2" }
 
+image-loader = { module = "io.github.qdsfdhvh:image-loader", version = "1.2.9" }
+
 [bundles]
 common = [
     "kotlin-coroutines",
