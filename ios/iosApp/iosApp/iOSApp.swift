@@ -1,3 +1,4 @@
+import Foundation
 import SwiftUI
 import KMMKit
 
@@ -6,6 +7,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        startKoin()
+
         let controller = AvoidDispose(RootViewControllersKt.RootViewController())
         controller.view.backgroundColor = .white
         let window = UIWindow(frame: UIScreen.main.bounds)
@@ -16,4 +19,16 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         
         return true
     }
+}
+
+func startKoin() {
+    let userDefaults = UserDefaults(suiteName: "DROIDCON_SETTINGS")!
+
+    let koinApplication = DependencyInjectionKt.doInitKoinIos(userDefaults: userDefaults)
+    _koin = koinApplication.koin
+}
+
+private var _koin: Koin_coreKoin? = nil
+var koin: Koin_coreKoin {
+    return _koin!
 }
