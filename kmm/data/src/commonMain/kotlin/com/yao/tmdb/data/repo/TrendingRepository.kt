@@ -1,5 +1,6 @@
 package com.yao.tmdb.data.repo
 
+import com.yao.tmdb.data.SharedConfig
 import com.yao.tmdb.data.model.Person
 import com.yao.tmdb.data.model.PersonResponse
 import com.yao.tmdb.data.model.Show
@@ -41,7 +42,7 @@ class TrendingRepositoryImpl(private val httpClient: HttpClient) : TrendingRepos
     }
 
     private suspend fun getTrending(mediaType: String): HttpResponse {
-        return httpClient.get("/trending/$mediaType/day")
+        return httpClient.get(SharedConfig.TMDB_API_VERSION.plus("/trending/$mediaType/day"))
     }
 
 }

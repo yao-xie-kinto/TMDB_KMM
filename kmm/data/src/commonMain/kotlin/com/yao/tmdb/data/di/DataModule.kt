@@ -23,7 +23,7 @@ fun dataModule() = module {
                 logger = Logger.DEFAULT
                 level = LogLevel.HEADERS
                 filter { request ->
-                    request.url.host.contains(SharedConfig.TMDB_BASE_URL)
+                    request.url.host.contains(SharedConfig.TMDB_DOMAIN)
                 }
             }
             install(ContentNegotiation) {
@@ -42,7 +42,7 @@ fun dataModule() = module {
             defaultRequest {
                 url {
                     protocol = URLProtocol.HTTPS
-                    host = SharedConfig.TMDB_BASE_URL
+                    host = SharedConfig.TMDB_DOMAIN
                     parameters.apply {
                         append("api_key", SharedConfig.TMDB_API_KEY)
                         append("language", "en-US")

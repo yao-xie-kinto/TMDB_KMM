@@ -14,6 +14,3 @@ fun initKoin(appDeclaration: KoinAppDeclaration = {}) =
             platformModule()
         )
     }
-
-// For iOS
-fun initKoin() = initKoin {}
