@@ -19,7 +19,7 @@ import moe.tlaster.precompose.navigation.rememberNavigator
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-internal fun App() {
+internal fun MainComposeView(viewModel: ApplicationViewModel) {
     val scope = rememberCoroutineScope()
     val navigator = rememberNavigator()
     val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
@@ -76,7 +76,7 @@ internal fun App() {
             Demo.values().forEach { screen ->
                 scene(screen.toString()) {
                     if (screen == Demo.BottomNavigation) {
-                        BottomNavigationView()
+                        BottomNavigationView(viewModel)
                     } else {
                         Box(
                             modifier = Modifier.padding(
@@ -86,7 +86,7 @@ internal fun App() {
                             )
                         ) {
                             when (screen) {
-                                Demo.First -> HomeScreen()
+                                Demo.First -> HomeScreen(viewModel.repository)
                                 Demo.Second -> SearchScreen()
                                 Demo.Third -> FavouriteScreen()
                                 else -> {}

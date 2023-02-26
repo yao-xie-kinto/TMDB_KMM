@@ -18,7 +18,7 @@ import moe.tlaster.precompose.navigation.NavHost
 import moe.tlaster.precompose.navigation.rememberNavigator
 
 @Composable
-internal fun BottomNavigationView() {
+internal fun BottomNavigationView(viewModel: ApplicationViewModel) {
     val navigator = rememberNavigator()
     val navBackStackEntry by navigator.currentEntry.collectAsState(null)
     val currentRoute = navBackStackEntry?.route?.route ?: ""
@@ -64,7 +64,7 @@ internal fun BottomNavigationView() {
             Tab.values().forEach { screen ->
                 scene(screen.toString()) {
                     when (screen) {
-                        Tab.Tab1 -> HomeScreen()
+                        Tab.Tab1 -> HomeScreen(viewModel.repository)
                         Tab.Tab2 -> SearchScreen()
                         Tab.Tab3 -> FavouriteScreen()
                     }

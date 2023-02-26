@@ -8,7 +8,7 @@ import org.jetbrains.skiko.currentSystemTheme
 import platform.CoreGraphics.CGFloat
 
 fun RootViewController() = PreComposeApplication(title = "") {
-    Content()
+    MainView()
 }
 
 fun setSafeArea(start: CGFloat, top: CGFloat, end: CGFloat, bottom: CGFloat) {

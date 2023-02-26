@@ -3,6 +3,7 @@ plugins {
     kotlin("multiplatform")
     id("com.android.library")
     alias(libs.plugins.sqldelight)
+    alias(libs.plugins.serialization)
 }
 
 kotlin {
@@ -28,6 +29,8 @@ kotlin {
 
                 implementation(libs.koin.core)
 //                implementation(libs.koin.ktor)
+
+                implementation(libs.napier)
             }
         }
         val commonTest by getting {

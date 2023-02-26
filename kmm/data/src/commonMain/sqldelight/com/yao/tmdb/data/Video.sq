@@ -1,0 +1,20 @@
+-- CREATE TABLE Video (
+--     id TEXT NOT NULL PRIMARY KEY,
+--     iso_639_1 TEXT NOT NULL,
+--     iso_3166_1 TEXT NOT NULL,
+--     name TEXT NOT NULL,
+--     key TEXT NOT NULL,
+--     site TEXT NOT NULL,
+--     size INTEGER AS Int,
+--     type TEXT NOT NULL,
+--     published_at TEXT NOT NULL
+-- );
+--
+-- selectAll:
+-- SELECT * FROM Video;
+--
+-- selectById:
+-- SELECT * FROM Video WHERE id = ?;
+--
+-- deleteAll:
+-- DELETE FROM Video;

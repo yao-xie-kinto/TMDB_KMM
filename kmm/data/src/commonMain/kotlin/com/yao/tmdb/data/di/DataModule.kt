@@ -1,12 +1,17 @@
 package com.yao.tmdb.data.di
 
+import com.yao.tmdb.data.SharedConfig
 import com.yao.tmdb.data.platform.getKtorEngine
-import com.yao.tmdb.data.repo.MovieRepository
-import com.yao.tmdb.data.repo.MovieRepositoryImpl
+import com.yao.tmdb.data.repo.HomeRepository
+import com.yao.tmdb.data.repo.HomeRepositoryImpl
+import io.github.aakira.napier.Napier
 import io.ktor.client.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
+import io.ktor.http.*
+import io.ktor.serialization.kotlinx.json.*
+import kotlinx.serialization.json.Json
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
@@ -17,11 +22,16 @@ fun dataModule() = module {
             install(Logging) {
                 logger = Logger.DEFAULT
                 level = LogLevel.HEADERS
-//                filter { request ->
-//                    request.url.host.contains("ktor.io")
-//                }
+                filter { request ->
+                    request.url.host.contains(SharedConfig.TMDB_BASE_URL)
+                }
             }
             install(ContentNegotiation) {
+                json(Json {
+                    prettyPrint = true
+                    isLenient = true
+                    ignoreUnknownKeys = true
+                })
             }
             install(HttpTimeout) {
                 val timeout = 1000L * 60
@@ -29,17 +39,25 @@ fun dataModule() = module {
                 requestTimeoutMillis = timeout
                 socketTimeoutMillis = timeout
             }
+            defaultRequest {
+                url {
+                    protocol = URLProtocol.HTTPS
+                    host = SharedConfig.TMDB_BASE_URL
+                    parameters.apply {
+                        append("api_key", SharedConfig.TMDB_API_KEY)
+                        append("language", "en-US")
+                    }
+                }
+            }
+        }.apply {
+            plugin(HttpSend).intercept { request ->
+                Napier.v(tag = "KtorClient", message = "HttpSend")
+                Napier.v(tag = "KtorClient", message = request.body.toString())
+                execute(request)
+            }
         }
-//            .apply {
-//                plugin(HttpSend).intercept { request ->
-//                    Napier.v("intercepted", null, "KtorClient")
-//                    Napier.v(request.body.toString(), null, "KtorClient")
-//                    execute(request)
-//                }
-//                // TODO: addInterceptor(UnifiedHeaderInterceptor())
-//            }
     }
-    singleOf(::MovieRepositoryImpl) { bind<MovieRepository>() }
+    singleOf(::HomeRepositoryImpl) { bind<HomeRepository>() }
 }
 
 //private val repositoryModule = module {

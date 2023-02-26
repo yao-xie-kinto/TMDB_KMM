@@ -3,6 +3,6 @@ package com.yao.tmdb.sharedui
 import androidx.compose.runtime.Composable
 
 @Composable
-fun RootView() {
-    Content()
+fun RootView(viewModel: ApplicationViewModel) {
+    MainView(viewModel)
 }

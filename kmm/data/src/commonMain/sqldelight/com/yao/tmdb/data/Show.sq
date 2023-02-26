@@ -1,0 +1,30 @@
+-- import kotlin.Boolean;
+-- import kotlin.Float;
+-- import kotlin.Int;
+-- import kotlin.collections.List;
+--
+-- CREATE TABLE Show (
+--     id INTEGER NOT NULL PRIMARY KEY,
+--     adult INTEGER AS Boolean NOT NULL DEFAULT 0,
+--     backdrop_path TEXT,
+--     genre_ids TEXT AS List<Int> NOT NULL,
+--     original_language TEXT,
+--     original_title TEXT,
+--     overview TEXT,
+--     popularity REAL AS Float NOT NULL,
+--     poster_path TEXT,
+--     release_date TEXT,
+--     title TEXT NOT NULL,
+--     video INTEGER AS Boolean NOT NULL DEFAULT 0,
+--     vote_average REAL AS Float,
+--     vote_count INTEGER AS Int
+-- );
+--
+-- selectAll:
+-- SELECT * FROM Show;
+--
+-- selectById:
+-- SELECT * FROM Show WHERE id = ?;
+--
+-- deleteAll:
+-- DELETE FROM Show;

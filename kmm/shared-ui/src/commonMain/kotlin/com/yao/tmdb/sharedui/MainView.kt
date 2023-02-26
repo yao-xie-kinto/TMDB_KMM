@@ -2,7 +2,6 @@ package com.yao.tmdb.sharedui
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.compositionLocalOf
@@ -14,9 +13,9 @@ internal val SafeArea = compositionLocalOf { safeAreaState }
 internal val DarkMode = compositionLocalOf { darkModeState }
 
 @Composable
-internal fun Content() {
+internal fun MainView(viewModel: ApplicationViewModel) {
     Theme {
-        App()
+        MainComposeView(viewModel)
     }
     // isSystemInDarkTheme is not working correctly on iOS
     val darkMode = isSystemInDarkTheme()
