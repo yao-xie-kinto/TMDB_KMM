@@ -13,9 +13,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.yao.tmdb.data.model.IShow
-import com.yao.tmdb.data.model.Movie
-import com.yao.tmdb.data.model.TV
+import com.yao.tmdb.data.model.Show
 import com.yao.tmdb.data.repo.HomeRepository
 import com.yao.tmdb.sharedui.base.BaseAction
 import com.yao.tmdb.sharedui.base.BaseState
@@ -33,7 +31,9 @@ internal fun HomeScreen(repository: HomeRepository) {
 
     Box(modifier = Modifier.background(Color.Red)) {
         Column(
-            modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             ShowList(state.movies)
             ShowList(state.dramas)
@@ -44,12 +44,12 @@ internal fun HomeScreen(repository: HomeRepository) {
 }
 
 @Composable
-internal fun ShowList(shows: List<IShow>) {
+internal fun ShowList(shows: List<Show>) {
     LazyRow {
         itemsIndexed(shows) { index, show ->
             ShowCard(
                 posterImageUrl = show.poster_path.toImageUrl(),
-                title = show.getShowTitle(),
+                title = show.retrieveTitle(),
                 isFirstCard = index == 0,
 //                onClick = { onItemClicked(tvShow.traktId) }
             )
@@ -63,8 +63,8 @@ internal fun Presenter(
     repository: HomeRepository,
     action: Flow<HomeContract.Action>,
 ): HomeContract.State {
-    var movies: List<Movie> by remember { mutableStateOf(emptyList()) }
-    var dramas: List<TV> by remember { mutableStateOf(emptyList()) }
+    var movies: List<Show> by remember { mutableStateOf(emptyList()) }
+    var dramas: List<Show> by remember { mutableStateOf(emptyList()) }
 
     action.collectAction {
         when (this) {
@@ -143,8 +143,8 @@ interface HomeContract {
     }
 
     data class State(
-        val movies: List<Movie>,
-        val dramas: List<TV>
+        val movies: List<Show>,
+        val dramas: List<Show>
 //        val artists: List<Person>
     ) : BaseState()
 

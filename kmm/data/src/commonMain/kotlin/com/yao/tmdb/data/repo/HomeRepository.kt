@@ -11,24 +11,24 @@ import io.ktor.client.statement.*
  */
 
 interface HomeRepository {
-    suspend fun getTrendingMovies(): List<Movie>
-    suspend fun getTrendingDramas(): List<TV>
+    suspend fun getTrendingMovies(): List<Show>
+    suspend fun getTrendingDramas(): List<Show>
     suspend fun getTrendingPeople(): List<Person>
 }
 
 class HomeRepositoryImpl(private val httpClient: HttpClient) : HomeRepository {
 
-    private val movies = arrayListOf<Movie>()
-    private val dramas = arrayListOf<TV>()
+    private val movies = arrayListOf<Show>()
+    private val dramas = arrayListOf<Show>()
     private val artists = arrayListOf<Person>()
 
-    override suspend fun getTrendingMovies(): List<Movie> {
-        val results: MovieResponse = getTrending("movie").body()
+    override suspend fun getTrendingMovies(): List<Show> {
+        val results: ShowResponse = getTrending("movie").body()
         return results.results
     }
 
-    override suspend fun getTrendingDramas(): List<TV> {
-        val results: TVResponse = getTrending("tv").body()
+    override suspend fun getTrendingDramas(): List<Show> {
+        val results: ShowResponse = getTrending("tv").body()
         return results.results
     }
 
