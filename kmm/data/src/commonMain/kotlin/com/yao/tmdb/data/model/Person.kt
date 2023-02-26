@@ -1,6 +1,5 @@
 package com.yao.tmdb.data.model
 
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -13,13 +12,14 @@ data class PersonResponse(
 
 @Serializable
 data class Person(
-    @SerialName("adult") val adult: Boolean,
-    @SerialName("id") val id: Long,
-    @SerialName("name") val name: String?,
-    @SerialName("original_name") val originalName: String?,
-    @SerialName("media_type") val mediaType: String?,
-    @SerialName("popularity") val popularity: Double,
-    @SerialName("gender") val gender: Int,
-    @SerialName("known_for_department") val knownForDepartment: String?,
-    @SerialName("profile_path") val profilePath: String?,
+    val adult: Boolean,
+    val gender: Int,
+    val id: Int,
+    val known_for: List<Show>,
+    val known_for_department: String,
+    val media_type: String,
+    val name: String,
+    val original_name: String,
+    val popularity: Double,
+    val profile_path: String
 )

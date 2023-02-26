@@ -1,6 +1,9 @@
 package com.yao.tmdb.data.repo
 
-import com.yao.tmdb.data.model.*
+import com.yao.tmdb.data.model.Person
+import com.yao.tmdb.data.model.PersonResponse
+import com.yao.tmdb.data.model.Show
+import com.yao.tmdb.data.model.ShowResponse
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
@@ -10,13 +13,13 @@ import io.ktor.client.statement.*
  * Repository to provide a "Hello" data
  */
 
-interface HomeRepository {
+interface TrendingRepository {
     suspend fun getTrendingMovies(): List<Show>
     suspend fun getTrendingDramas(): List<Show>
-    suspend fun getTrendingPeople(): List<Person>
+    suspend fun getTrendingArtists(): List<Person>
 }
 
-class HomeRepositoryImpl(private val httpClient: HttpClient) : HomeRepository {
+class TrendingRepositoryImpl(private val httpClient: HttpClient) : TrendingRepository {
 
     private val movies = arrayListOf<Show>()
     private val dramas = arrayListOf<Show>()
@@ -32,7 +35,7 @@ class HomeRepositoryImpl(private val httpClient: HttpClient) : HomeRepository {
         return results.results
     }
 
-    override suspend fun getTrendingPeople(): List<Person> {
+    override suspend fun getTrendingArtists(): List<Person> {
         val results: PersonResponse = getTrending("person").body()
         return results.results
     }

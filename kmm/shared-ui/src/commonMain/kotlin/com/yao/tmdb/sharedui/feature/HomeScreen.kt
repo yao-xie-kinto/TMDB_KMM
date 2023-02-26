@@ -13,8 +13,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.yao.tmdb.data.model.Person
 import com.yao.tmdb.data.model.Show
-import com.yao.tmdb.data.repo.HomeRepository
+import com.yao.tmdb.data.repo.TrendingRepository
 import com.yao.tmdb.sharedui.base.BaseAction
 import com.yao.tmdb.sharedui.base.BaseState
 import com.yao.tmdb.sharedui.component.RemoteImage
@@ -25,7 +26,7 @@ import moe.tlaster.precompose.molecule.collectAction
 import moe.tlaster.precompose.molecule.rememberPresenter
 
 @Composable
-internal fun HomeScreen(repository: HomeRepository) {
+internal fun HomeScreen(repository: TrendingRepository) {
 
     val (state, channel) = rememberPresenter { Presenter(repository, it) }
 
@@ -37,6 +38,7 @@ internal fun HomeScreen(repository: HomeRepository) {
         ) {
             ShowList(state.movies)
             ShowList(state.dramas)
+            ArtistList(state.artists)
         }
     }
 
@@ -57,26 +59,41 @@ internal fun ShowList(shows: List<Show>) {
     }
 }
 
+@Composable
+internal fun ArtistList(person: List<Person>) {
+    LazyRow {
+        itemsIndexed(person) { index, person ->
+            ShowCard(
+                posterImageUrl = person.profile_path.toImageUrl(),
+                title = person.name,
+                isFirstCard = index == 0,
+//                onClick = { onItemClicked(tvShow.traktId) }
+            )
+        }
+    }
+}
 
 @Composable
 internal fun Presenter(
-    repository: HomeRepository,
+    repository: TrendingRepository,
     action: Flow<HomeContract.Action>,
 ): HomeContract.State {
     var movies: List<Show> by remember { mutableStateOf(emptyList()) }
     var dramas: List<Show> by remember { mutableStateOf(emptyList()) }
+    var artists: List<Person> by remember { mutableStateOf(emptyList()) }
 
     action.collectAction {
         when (this) {
             is HomeContract.Action.Init -> {
                 movies = repository.getTrendingMovies()
                 dramas = repository.getTrendingDramas()
+                artists = repository.getTrendingArtists()
             }
             else -> {}
         }
     }
 
-    return HomeContract.State(movies = movies, dramas = dramas)
+    return HomeContract.State(movies = movies, dramas = dramas, artists = artists)
 }
 
 @Composable
@@ -144,8 +161,8 @@ interface HomeContract {
 
     data class State(
         val movies: List<Show>,
-        val dramas: List<Show>
-//        val artists: List<Person>
+        val dramas: List<Show>,
+        val artists: List<Person>
     ) : BaseState()
 
 }

@@ -2,8 +2,8 @@ package com.yao.tmdb.data.di
 
 import com.yao.tmdb.data.SharedConfig
 import com.yao.tmdb.data.platform.getKtorEngine
-import com.yao.tmdb.data.repo.HomeRepository
-import com.yao.tmdb.data.repo.HomeRepositoryImpl
+import com.yao.tmdb.data.repo.TrendingRepository
+import com.yao.tmdb.data.repo.TrendingRepositoryImpl
 import io.github.aakira.napier.Napier
 import io.ktor.client.*
 import io.ktor.client.plugins.*
@@ -57,7 +57,7 @@ fun dataModule() = module {
             }
         }
     }
-    singleOf(::HomeRepositoryImpl) { bind<HomeRepository>() }
+    singleOf(::TrendingRepositoryImpl) { bind<TrendingRepository>() }
 }
 
 //private val repositoryModule = module {
