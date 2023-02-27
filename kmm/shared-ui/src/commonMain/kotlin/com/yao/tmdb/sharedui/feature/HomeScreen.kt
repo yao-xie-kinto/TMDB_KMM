@@ -15,22 +15,57 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.yao.tmdb.data.model.Show
 import com.yao.tmdb.data.repo.Repository
+import com.yao.tmdb.sharedui.Demo
 import com.yao.tmdb.sharedui.base.BaseAction
 import com.yao.tmdb.sharedui.base.BaseState
 import com.yao.tmdb.sharedui.component.RemoteImage
 import com.yao.tmdb.sharedui.component.RowSpacer
 import com.yao.tmdb.sharedui.util.toImageUrl
+import io.github.aakira.napier.Napier
 import kotlinx.coroutines.flow.Flow
 import moe.tlaster.precompose.molecule.collectAction
 import moe.tlaster.precompose.molecule.rememberPresenter
+import moe.tlaster.precompose.navigation.Navigator
+
+//@Composable
+//internal fun HomeScreen(navigator: Navigator, repository: Repository) {
+//    NavHost(
+//        navigator = navigator,
+//        initialRoute = HomeContract.Screen.values().first().toString(),
+//        modifier = Modifier.padding(
+//            start = SafeArea.current.value.calculateStartPadding(
+//                LayoutDirection.Ltr
+//            ),
+//            end = SafeArea.current.value.calculateEndPadding(LayoutDirection.Ltr),
+//        )
+//    ) {
+//        HomeContract.Screen.values().forEach { screen ->
+//            scene(screen.toString()) {
+//                when (screen) {
+//                    HomeContract.Screen.Home -> {
+//                        HomeScreenList(navigator, repository)
+//                    }
+//                    HomeContract.Screen.ShowMore -> SearchScreen()
+//                    HomeContract.Screen.ShowDetail -> FavouriteScreen()
+//                }
+//            }
+//        }
+//    }
+//    HomeScreenList(navigator, repository)
+//}
 
 @Composable
-internal fun HomeScreen(repository: Repository) {
+internal fun HomeScreen(navigator: Navigator, repository: Repository) {
     val (state, channel) = rememberPresenter { Presenter(repository, it) }
-
     HomeScrollingContent(
         PaddingValues(0.dp), state,
-//        {}, {}
+        {
+            Napier.d {
+                "navigator = $navigator"
+            }
+            navigator.navigate(route = Demo.ShowDetail.toString())
+        },
+        {}
     )
     channel.trySend(HomeContract.Action.Init)
 }
@@ -39,8 +74,8 @@ internal fun HomeScreen(repository: Repository) {
 internal fun HomeScrollingContent(
     contentPadding: PaddingValues,
     state: HomeContract.State,
-//    openShowDetails: (showId: Int) -> Unit,
-//    moreClicked: (showType: Int) -> Unit
+    onClickShowDetail: (showId: Int) -> Unit,
+    onClickShowMore: (showType: String) -> Unit
 ) {
     LazyColumn(
         contentPadding = contentPadding,
@@ -51,13 +86,13 @@ internal fun HomeScrollingContent(
             TrendingsRow(state.trendingMovies)
         }
         item {
-            ShowsRow(state.topRatedMovies)
+            ShowsRow(state.topRatedMovies, onClickShowDetail)
         }
         item {
-            ShowsRow(state.popularMovies)
+            ShowsRow(state.popularMovies, onClickShowDetail)
         }
         item {
-            ShowsRow(state.popularDramas)
+            ShowsRow(state.popularDramas, onClickShowDetail)
         }
     }
 }
@@ -80,7 +115,7 @@ internal fun TrendingsRow(shows: List<Show>) {
 }
 
 @Composable
-internal fun ShowsRow(shows: List<Show>) {
+internal fun ShowsRow(shows: List<Show>, onClickShowDetail: (showId: Int) -> Unit) {
     Column {
         LazyRow {
             itemsIndexed(shows) { index, show ->
@@ -88,7 +123,7 @@ internal fun ShowsRow(shows: List<Show>) {
                     posterImageUrl = show.poster_path.toImageUrl(),
                     title = show.retrieveTitle(),
                     isFirstCard = index == 0,
-//                onClick = { onItemClicked(tvShow.traktId) }
+                    onCardClick = { onClickShowDetail(show.id) }
                 )
             }
         }
@@ -134,7 +169,7 @@ internal fun ShowCard(
     isFirstCard: Boolean = false,
     imageWidth: Dp = 120.dp,
     rowSpacer: Int = 4,
-    onClick: () -> Unit = {}
+    onCardClick: () -> Unit = {}
 ) {
     RowSpacer(value = if (isFirstCard) 16 else 4)
 
@@ -146,12 +181,10 @@ internal fun ShowCard(
         Card(
             elevation = 4.dp,
             shape = MaterialTheme.shapes.medium,
-            modifier = Modifier
-                .clickable { onClick() }
-
+            modifier = Modifier.clickable { }
         ) {
             Box(
-                modifier = Modifier.clickable(onClick = onClick)
+                modifier = Modifier.clickable { }
             ) {
 
                 CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
@@ -169,7 +202,11 @@ internal fun ShowCard(
                     contentDescription = "",
                     modifier = Modifier
                         .aspectRatio(2 / 3f)
-                        .clip(MaterialTheme.shapes.medium),
+                        .clip(MaterialTheme.shapes.medium)
+                        .clickable {
+                            Napier.e { "Not working :(" }
+                            onCardClick.invoke()
+                        }
                 )
             }
         }

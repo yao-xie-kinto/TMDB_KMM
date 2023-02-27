@@ -10,9 +10,11 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.LayoutDirection
+import com.yao.tmdb.sharedui.feature.DetailScreen
 import com.yao.tmdb.sharedui.feature.FavouriteScreen
 import com.yao.tmdb.sharedui.feature.HomeScreen
 import com.yao.tmdb.sharedui.feature.SearchScreen
+import io.github.aakira.napier.Napier
 import kotlinx.coroutines.launch
 import moe.tlaster.precompose.navigation.NavHost
 import moe.tlaster.precompose.navigation.rememberNavigator
@@ -73,13 +75,18 @@ internal fun MainComposeView(viewModel: ApplicationViewModel) {
         scaffoldState = scaffoldState
     ) {
         NavHost(navigator = navigator, initialRoute = Demo.BottomNavigation.toString()) {
+            Napier.e {
+                "navigator = $navigator"
+            }
             Demo.values().forEach { screen ->
                 scene(screen.toString()) {
                     when (screen) {
-                        Demo.BottomNavigation -> BottomNavigationView(viewModel)
-                        Demo.First -> HomeScreen(viewModel.repository)
+                        Demo.BottomNavigation -> BottomNavigationView(navigator, viewModel)
+                        Demo.First -> HomeScreen(navigator, viewModel.repository)
                         Demo.Second -> SearchScreen()
                         Demo.Third -> FavouriteScreen()
+                        Demo.ShowDetail -> DetailScreen()
+                        Demo.ShowMore -> SearchScreen()
                         else -> {}
                     }
                 }
@@ -92,5 +99,7 @@ enum class Demo {
     BottomNavigation,
     First,
     Second,
-    Third
+    Third,
+    ShowDetail,
+    ShowMore
 }

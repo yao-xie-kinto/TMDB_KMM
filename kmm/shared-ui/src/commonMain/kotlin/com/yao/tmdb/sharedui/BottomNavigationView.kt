@@ -14,12 +14,13 @@ import androidx.compose.ui.unit.dp
 import com.yao.tmdb.sharedui.feature.FavouriteScreen
 import com.yao.tmdb.sharedui.feature.HomeScreen
 import com.yao.tmdb.sharedui.feature.SearchScreen
+import io.github.aakira.napier.Napier
 import moe.tlaster.precompose.navigation.NavHost
+import moe.tlaster.precompose.navigation.Navigator
 import moe.tlaster.precompose.navigation.rememberNavigator
 
 @Composable
-internal fun BottomNavigationView(viewModel: ApplicationViewModel) {
-    val navigator = rememberNavigator()
+internal fun BottomNavigationView(navigator: Navigator, viewModel: ApplicationViewModel) {
     val navBackStackEntry by navigator.currentEntry.collectAsState(null)
     val currentRoute = navBackStackEntry?.route?.route ?: ""
     Scaffold(
@@ -28,7 +29,7 @@ internal fun BottomNavigationView(viewModel: ApplicationViewModel) {
                 BottomNavigation(
                     modifier = Modifier.height(55.dp + SafeArea.current.value.calculateBottomPadding())
                 ) {
-                    Tab.values().forEach { screen ->
+                    Tab.values().forEach { tab ->
                         BottomNavigationItem(
                             modifier = Modifier.padding(bottom = SafeArea.current.value.calculateBottomPadding()),
                             icon = {
@@ -37,10 +38,10 @@ internal fun BottomNavigationView(viewModel: ApplicationViewModel) {
                                     contentDescription = null
                                 )
                             },
-                            label = { Text(screen.toString()) },
-                            selected = currentRoute == screen.toString(),
+                            label = { Text(tab.toString()) },
+                            selected = currentRoute == tab.toString(),
                             onClick = {
-                                navigator.navigate(route = screen.toString())
+                                navigator.navigate(route = tab.toString())
                             },
                             selectedContentColor = MaterialTheme.colors.onPrimary,
                             unselectedContentColor = MaterialTheme.colors.onPrimary.copy(alpha = 0.5f)
@@ -50,6 +51,9 @@ internal fun BottomNavigationView(viewModel: ApplicationViewModel) {
             }
         }
     ) {
+        Napier.e {
+            "navigator = $navigator"
+        }
         NavHost(
             navigator = navigator,
             initialRoute = Tab.values().first().toString(),
@@ -61,10 +65,10 @@ internal fun BottomNavigationView(viewModel: ApplicationViewModel) {
                 bottom = 55.dp + SafeArea.current.value.calculateBottomPadding()
             )
         ) {
-            Tab.values().forEach { screen ->
-                scene(screen.toString()) {
-                    when (screen) {
-                        Tab.Tab1 -> HomeScreen(viewModel.repository)
+            Tab.values().forEach { tab ->
+                scene(tab.toString()) {
+                    when (tab) {
+                        Tab.Home -> HomeScreen(navigator, viewModel.repository)
                         Tab.Tab2 -> SearchScreen()
                         Tab.Tab3 -> FavouriteScreen()
                     }
@@ -75,7 +79,7 @@ internal fun BottomNavigationView(viewModel: ApplicationViewModel) {
 }
 
 enum class Tab {
-    Tab1,
+    Home,
     Tab2,
-    Tab3
+    Tab3,
 }

@@ -23,3 +23,16 @@ internal fun SearchScreen() {
         }
     }
 }
+
+@Composable
+internal fun DetailScreen() {
+    Box(modifier = Modifier.background(Color.Yellow)) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text("DetailScreen!")
+        }
+    }
+}
