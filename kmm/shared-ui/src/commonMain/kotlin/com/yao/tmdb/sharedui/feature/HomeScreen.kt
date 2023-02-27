@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.yao.tmdb.data.model.Show
 import com.yao.tmdb.data.repo.Repository
-import com.yao.tmdb.sharedui.Demo
+import com.yao.tmdb.sharedui.FullScreen
 import com.yao.tmdb.sharedui.base.BaseAction
 import com.yao.tmdb.sharedui.base.BaseState
 import com.yao.tmdb.sharedui.component.RemoteImage
@@ -27,33 +27,6 @@ import moe.tlaster.precompose.molecule.collectAction
 import moe.tlaster.precompose.molecule.rememberPresenter
 import moe.tlaster.precompose.navigation.Navigator
 
-//@Composable
-//internal fun HomeScreen(navigator: Navigator, repository: Repository) {
-//    NavHost(
-//        navigator = navigator,
-//        initialRoute = HomeContract.Screen.values().first().toString(),
-//        modifier = Modifier.padding(
-//            start = SafeArea.current.value.calculateStartPadding(
-//                LayoutDirection.Ltr
-//            ),
-//            end = SafeArea.current.value.calculateEndPadding(LayoutDirection.Ltr),
-//        )
-//    ) {
-//        HomeContract.Screen.values().forEach { screen ->
-//            scene(screen.toString()) {
-//                when (screen) {
-//                    HomeContract.Screen.Home -> {
-//                        HomeScreenList(navigator, repository)
-//                    }
-//                    HomeContract.Screen.ShowMore -> SearchScreen()
-//                    HomeContract.Screen.ShowDetail -> FavouriteScreen()
-//                }
-//            }
-//        }
-//    }
-//    HomeScreenList(navigator, repository)
-//}
-
 @Composable
 internal fun HomeScreen(navigator: Navigator, repository: Repository) {
     val (state, channel) = rememberPresenter { Presenter(repository, it) }
@@ -63,7 +36,7 @@ internal fun HomeScreen(navigator: Navigator, repository: Repository) {
             Napier.d {
                 "navigator = $navigator"
             }
-            navigator.navigate(route = Demo.ShowDetail.toString())
+            navigator.navigate(route = FullScreen.ShowDetail.toString())
         },
         {}
     )

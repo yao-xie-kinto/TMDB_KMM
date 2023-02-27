@@ -16,11 +16,11 @@ import com.yao.tmdb.sharedui.feature.HomeScreen
 import com.yao.tmdb.sharedui.feature.SearchScreen
 import io.github.aakira.napier.Napier
 import moe.tlaster.precompose.navigation.NavHost
-import moe.tlaster.precompose.navigation.Navigator
 import moe.tlaster.precompose.navigation.rememberNavigator
 
 @Composable
-internal fun BottomNavigationView(navigator: Navigator, viewModel: ApplicationViewModel) {
+internal fun BottomNavigationView(viewModel: ApplicationViewModel) {
+    val navigator = rememberNavigator()
     val navBackStackEntry by navigator.currentEntry.collectAsState(null)
     val currentRoute = navBackStackEntry?.route?.route ?: ""
     Scaffold(
@@ -74,12 +74,26 @@ internal fun BottomNavigationView(navigator: Navigator, viewModel: ApplicationVi
                     }
                 }
             }
+            FullScreen.values().forEach { screen ->
+                scene(screen.toString()) {
+                    when (screen) {
+                        FullScreen.ShowDetail -> {
+                            SearchScreen()
+                        }
+                        FullScreen.ShowMore -> {
+                            FavouriteScreen()
+                        }
+                    }
+                }
+            }
         }
     }
 }
 
 enum class Tab {
-    Home,
-    Tab2,
-    Tab3,
+    Home, Tab2, Tab3,
+}
+
+enum class FullScreen {
+    ShowDetail, ShowMore
 }

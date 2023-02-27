@@ -12,14 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
 @Composable
-internal fun SearchScreen() {
-    Box(modifier = Modifier.background(Color.Yellow)) {
+internal fun DrawerScreen(text: String) {
+    Box(modifier = Modifier.background(Color.Black)) {
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Search!")
+            Text(text)
         }
     }
 }
