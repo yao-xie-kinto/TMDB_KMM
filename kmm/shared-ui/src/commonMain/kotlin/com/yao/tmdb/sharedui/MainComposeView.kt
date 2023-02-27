@@ -6,13 +6,18 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.unit.dp
 import com.yao.tmdb.sharedui.feature.DrawerScreen
+import com.yao.tmdb.sharedui.feature.ShowDetailScreen
 import kotlinx.coroutines.launch
 import moe.tlaster.precompose.navigation.NavHost
+import moe.tlaster.precompose.navigation.path
 import moe.tlaster.precompose.navigation.rememberNavigator
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -25,24 +30,41 @@ internal fun MainComposeView(viewModel: ApplicationViewModel) {
     val currentRoute = navBackStackEntry?.route?.route
     Scaffold(
         topBar = {
-            Box(modifier = Modifier.background(MaterialTheme.colors.primary)) {
+            Box(
+                modifier = Modifier.background(MaterialTheme.colors.primary).fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                val route = currentRoute ?: ""
                 TopAppBar(
                     modifier = Modifier.padding(
                         start = SafeArea.current.value.calculateStartPadding(LayoutDirection.Ltr),
                         top = SafeArea.current.value.calculateTopPadding(),
                         end = SafeArea.current.value.calculateEndPadding(LayoutDirection.Ltr)
                     ),
-                    title = { Text(currentRoute ?: "") },
-                    navigationIcon = {
-                        Icon(
-                            Icons.Default.Menu,
-                            "test",
-                            modifier = Modifier.clickable(
-                                onClick = {
-                                    scope.launch { scaffoldState.drawerState.open() }
-                                }
-                            )
+                    title = {
+                        Text(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(end = 80.dp)
+                                .align(Alignment.Center),
+                            textAlign = TextAlign.Center,
+                            text = route
                         )
+                    },
+                    navigationIcon = {
+                        if (route.contains(FullScreen.ShowDetail.toString())
+                            || route.contains(FullScreen.ShowMore.toString())
+                        ) {
+                            Icon(
+                                Icons.Default.Close,
+                                "Close",
+                                modifier = Modifier.clickable(
+                                    onClick = {
+                                        navigator.popBackStack()
+                                    }
+                                )
+                            )
+                        }
                     }
                 )
             }
@@ -74,11 +96,17 @@ internal fun MainComposeView(viewModel: ApplicationViewModel) {
             Drawer.values().forEach { screen ->
                 scene(screen.toString()) {
                     when (screen) {
-                        Drawer.BottomNavigation -> BottomNavigationView(viewModel)
+                        Drawer.BottomNavigation -> BottomNavigationView(navigator, viewModel)
                         Drawer.First -> DrawerScreen(screen.toString())
                         Drawer.Second -> DrawerScreen(screen.toString())
                         Drawer.Third -> DrawerScreen(screen.toString())
                     }
+                }
+            }
+            scene(route = "/${FullScreen.ShowDetail}/{id}?") { backStackEntry ->
+                val id: Int? = backStackEntry.path<Int>("id")
+                id?.let {
+                    ShowDetailScreen(it)
                 }
             }
         }

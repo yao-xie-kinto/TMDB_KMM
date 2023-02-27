@@ -28,15 +28,12 @@ import moe.tlaster.precompose.molecule.rememberPresenter
 import moe.tlaster.precompose.navigation.Navigator
 
 @Composable
-internal fun HomeScreen(navigator: Navigator, repository: Repository) {
+internal fun HomeScreen(rootNavigator: Navigator, repository: Repository) {
     val (state, channel) = rememberPresenter { Presenter(repository, it) }
     HomeScrollingContent(
         PaddingValues(0.dp), state,
         {
-            Napier.d {
-                "navigator = $navigator"
-            }
-            navigator.navigate(route = FullScreen.ShowDetail.toString())
+            rootNavigator.navigate(route = "/${FullScreen.ShowDetail}/$it")
         },
         {}
     )
