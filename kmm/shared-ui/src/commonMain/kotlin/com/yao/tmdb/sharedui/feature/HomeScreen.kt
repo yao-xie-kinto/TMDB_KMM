@@ -26,8 +26,8 @@ import moe.tlaster.precompose.molecule.rememberPresenter
 
 @Composable
 internal fun HomeScreen(repository: Repository) {
-
     val (state, channel) = rememberPresenter { Presenter(repository, it) }
+
     HomeScrollingContent(
         PaddingValues(0.dp), state,
 //        {}, {}
@@ -48,45 +48,51 @@ internal fun HomeScrollingContent(
             .animateContentSize(),
     ) {
         item {
-            TrendingRow(state.trendingMovies)
+            TrendingsRow(state.trendingMovies)
         }
         item {
-            MovieRow(state.topRatedMovies)
+            ShowsRow(state.topRatedMovies)
         }
         item {
-            MovieRow(state.popularMovies)
+            ShowsRow(state.popularMovies)
         }
         item {
-            MovieRow(state.popularDramas)
+            ShowsRow(state.popularDramas)
         }
     }
 }
 
 @Composable
-internal fun TrendingRow(shows: List<Show>) {
-    LazyRow {
-        itemsIndexed(shows) { index, show ->
-            ShowCard(
-                posterImageUrl = show.poster_path.toImageUrl(),
-                title = show.retrieveTitle(),
-                isFirstCard = index == 0,
+internal fun TrendingsRow(shows: List<Show>) {
+    Column {
+        LazyRow {
+            itemsIndexed(shows) { index, show ->
+                ShowCard(
+                    posterImageUrl = show.poster_path.toImageUrl(),
+                    title = show.retrieveTitle(),
+                    isFirstCard = index == 0,
 //                onClick = { onItemClicked(tvShow.traktId) }
-            )
+                )
+            }
         }
+        Text("More")
     }
 }
 
 @Composable
-internal fun MovieRow(shows: List<Show>) {
-    LazyRow {
-        itemsIndexed(shows) { index, show ->
-            ShowCard(
-                posterImageUrl = show.poster_path.toImageUrl(),
-                title = show.retrieveTitle(),
-                isFirstCard = index == 0,
+internal fun ShowsRow(shows: List<Show>) {
+    Column {
+        LazyRow {
+            itemsIndexed(shows) { index, show ->
+                ShowCard(
+                    posterImageUrl = show.poster_path.toImageUrl(),
+                    title = show.retrieveTitle(),
+                    isFirstCard = index == 0,
 //                onClick = { onItemClicked(tvShow.traktId) }
-            )
+                )
+            }
         }
+        Text("More")
     }
 }
 

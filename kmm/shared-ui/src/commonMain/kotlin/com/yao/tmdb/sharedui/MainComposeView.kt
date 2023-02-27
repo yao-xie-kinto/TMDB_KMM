@@ -75,23 +75,12 @@ internal fun MainComposeView(viewModel: ApplicationViewModel) {
         NavHost(navigator = navigator, initialRoute = Demo.BottomNavigation.toString()) {
             Demo.values().forEach { screen ->
                 scene(screen.toString()) {
-                    if (screen == Demo.BottomNavigation) {
-                        BottomNavigationView(viewModel)
-                    } else {
-                        Box(
-                            modifier = Modifier.padding(
-                                start = SafeArea.current.value.calculateStartPadding(LayoutDirection.Ltr),
-                                end = SafeArea.current.value.calculateEndPadding(LayoutDirection.Ltr),
-                                bottom = SafeArea.current.value.calculateBottomPadding()
-                            )
-                        ) {
-                            when (screen) {
-                                Demo.First -> HomeScreen(viewModel.repository)
-                                Demo.Second -> SearchScreen()
-                                Demo.Third -> FavouriteScreen()
-                                else -> {}
-                            }
-                        }
+                    when (screen) {
+                        Demo.BottomNavigation -> BottomNavigationView(viewModel)
+                        Demo.First -> HomeScreen(viewModel.repository)
+                        Demo.Second -> SearchScreen()
+                        Demo.Third -> FavouriteScreen()
+                        else -> {}
                     }
                 }
             }
