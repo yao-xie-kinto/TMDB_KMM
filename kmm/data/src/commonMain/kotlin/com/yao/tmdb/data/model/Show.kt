@@ -13,11 +13,11 @@ data class ShowResponse(
 
 @Serializable
 data class Show(
-    val adult: Boolean,
-    val backdrop_path: String,
+    val adult: Boolean? = null,
+    val backdrop_path: String? = null,
     val genre_ids: List<Int>,
     val id: Int,
-    val media_type: String,
+    val media_type: String? = null,
     val original_language: String,
     val overview: String,
     val popularity: Double,

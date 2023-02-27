@@ -1,8 +1,9 @@
 package com.yao.tmdb.sharedui.feature
 
-import androidx.compose.foundation.background
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
@@ -10,12 +11,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.yao.tmdb.data.model.Person
 import com.yao.tmdb.data.model.Show
-import com.yao.tmdb.data.repo.TrendingRepository
+import com.yao.tmdb.data.repo.Repository
 import com.yao.tmdb.sharedui.base.BaseAction
 import com.yao.tmdb.sharedui.base.BaseState
 import com.yao.tmdb.sharedui.component.RemoteImage
@@ -26,27 +25,45 @@ import moe.tlaster.precompose.molecule.collectAction
 import moe.tlaster.precompose.molecule.rememberPresenter
 
 @Composable
-internal fun HomeScreen(repository: TrendingRepository) {
+internal fun HomeScreen(repository: Repository) {
 
     val (state, channel) = rememberPresenter { Presenter(repository, it) }
-
-    Box(modifier = Modifier.background(Color.Red)) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            ShowList(state.movies)
-            ShowList(state.dramas)
-            ArtistList(state.artists)
-        }
-    }
-
+    HomeScrollingContent(
+        PaddingValues(0.dp), state,
+//        {}, {}
+    )
     channel.trySend(HomeContract.Action.Init)
 }
 
 @Composable
-internal fun ShowList(shows: List<Show>) {
+internal fun HomeScrollingContent(
+    contentPadding: PaddingValues,
+    state: HomeContract.State,
+//    openShowDetails: (showId: Int) -> Unit,
+//    moreClicked: (showType: Int) -> Unit
+) {
+    LazyColumn(
+        contentPadding = contentPadding,
+        modifier = Modifier.fillMaxSize()
+            .animateContentSize(),
+    ) {
+        item {
+            TrendingRow(state.trendingMovies)
+        }
+        item {
+            MovieRow(state.topRatedMovies)
+        }
+        item {
+            MovieRow(state.popularMovies)
+        }
+        item {
+            MovieRow(state.popularDramas)
+        }
+    }
+}
+
+@Composable
+internal fun TrendingRow(shows: List<Show>) {
     LazyRow {
         itemsIndexed(shows) { index, show ->
             ShowCard(
@@ -60,12 +77,12 @@ internal fun ShowList(shows: List<Show>) {
 }
 
 @Composable
-internal fun ArtistList(person: List<Person>) {
+internal fun MovieRow(shows: List<Show>) {
     LazyRow {
-        itemsIndexed(person) { index, person ->
+        itemsIndexed(shows) { index, show ->
             ShowCard(
-                posterImageUrl = person.profile_path.toImageUrl(),
-                title = person.name,
+                posterImageUrl = show.poster_path.toImageUrl(),
+                title = show.retrieveTitle(),
                 isFirstCard = index == 0,
 //                onClick = { onItemClicked(tvShow.traktId) }
             )
@@ -75,25 +92,32 @@ internal fun ArtistList(person: List<Person>) {
 
 @Composable
 internal fun Presenter(
-    repository: TrendingRepository,
+    repository: Repository,
     action: Flow<HomeContract.Action>,
 ): HomeContract.State {
-    var movies: List<Show> by remember { mutableStateOf(emptyList()) }
-    var dramas: List<Show> by remember { mutableStateOf(emptyList()) }
-    var artists: List<Person> by remember { mutableStateOf(emptyList()) }
+    var trendingMovies: List<Show> by remember { mutableStateOf(emptyList()) }
+    var topRatedMovies: List<Show> by remember { mutableStateOf(emptyList()) }
+    var popularMovies: List<Show> by remember { mutableStateOf(emptyList()) }
+    var popularDramas: List<Show> by remember { mutableStateOf(emptyList()) }
 
     action.collectAction {
         when (this) {
             is HomeContract.Action.Init -> {
-                movies = repository.getTrendingMovies()
-                dramas = repository.getTrendingDramas()
-                artists = repository.getTrendingArtists()
+                trendingMovies = repository.getTrendingMovies()
+                topRatedMovies = repository.getTopRatedMovies()
+                popularMovies = repository.getPopularMovies()
+                popularDramas = repository.getPopularDramas()
             }
             else -> {}
         }
     }
 
-    return HomeContract.State(movies = movies, dramas = dramas, artists = artists)
+    return HomeContract.State(
+        trendingMovies = trendingMovies,
+        topRatedMovies = topRatedMovies,
+        popularMovies = popularMovies,
+        popularDramas = popularDramas
+    )
 }
 
 @Composable
@@ -160,9 +184,10 @@ interface HomeContract {
     }
 
     data class State(
-        val movies: List<Show>,
-        val dramas: List<Show>,
-        val artists: List<Person>
+        val trendingMovies: List<Show>,
+        val topRatedMovies: List<Show>,
+        val popularMovies: List<Show>,
+        val popularDramas: List<Show>
     ) : BaseState()
 
 }

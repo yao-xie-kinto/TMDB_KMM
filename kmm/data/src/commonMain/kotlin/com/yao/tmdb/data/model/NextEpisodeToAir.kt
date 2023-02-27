@@ -1,18 +1,19 @@
 package com.yao.tmdb.data.model
 
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class NextEpisodeToAir(
-    @SerialName("id") val id: Int?,
-    @SerialName("name") val name: String?,
-    @SerialName("overview") val overview: String?,
-    @SerialName("air_date") val airDate: String?,
-    @SerialName("episode_number") val episodeNumber: Int?,
-    @SerialName("season_number") val seasonNumber: Int?,
-    @SerialName("still_path") val stillPath: String?,
-    @SerialName("vote_average") val voteAverage: Double?,
-    @SerialName("vote_count") val voteCount: Int?,
-    @SerialName("production_code") val productionCode: String?
+    val air_date: String,
+    val episode_number: Int,
+    val id: Int,
+    val name: String,
+    val overview: String,
+    val production_code: String,
+    val runtime: Int,
+    val season_number: Int,
+    val show_id: Int,
+    val still_path: String,
+    val vote_average: Double,
+    val vote_count: Int
 )
