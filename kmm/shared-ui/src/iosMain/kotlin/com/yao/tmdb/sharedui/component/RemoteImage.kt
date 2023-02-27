@@ -16,17 +16,21 @@ import platform.Foundation.NSFileManager
 import platform.Foundation.NSUserDomainMask
 
 @Composable
-internal actual fun __RemoteImage(imageUrl: String, modifier: Modifier, contentDescription: String?) {
+internal actual fun __RemoteImage(
+    imageUrl: String,
+    modifier: Modifier,
+    contentDescription: String?
+) {
     CompositionLocalProvider(
         LocalImageLoader provides generateImageLoader()
     ) {
-        val resource = rememberAsyncImagePainter(
+        val painter = rememberAsyncImagePainter(
             url = imageUrl,
             imageLoader = LocalImageLoader.current,
         )
 
         Image(
-            painter = resource,
+            painter = painter,
             contentDescription = contentDescription,
             modifier = modifier,
         )

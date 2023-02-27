@@ -20,7 +20,7 @@ import com.yao.tmdb.sharedui.base.BaseAction
 import com.yao.tmdb.sharedui.base.BaseState
 import com.yao.tmdb.sharedui.component.RemoteImage
 import com.yao.tmdb.sharedui.component.RowSpacer
-import com.yao.tmdb.sharedui.util.toImageUrl
+import com.yao.tmdb.sharedui.util.toThumbnailImageUrl
 import io.github.aakira.napier.Napier
 import kotlinx.coroutines.flow.Flow
 import moe.tlaster.precompose.molecule.collectAction
@@ -103,7 +103,7 @@ internal fun TrendingsRow(shows: List<Show>) {
         LazyRow {
             itemsIndexed(shows) { index, show ->
                 ShowCard(
-                    posterImageUrl = show.poster_path.toImageUrl(),
+                    posterImageUrl = show.poster_path.toThumbnailImageUrl(),
                     title = show.retrieveTitle(),
                     isFirstCard = index == 0,
 //                onClick = { onItemClicked(tvShow.traktId) }
@@ -120,7 +120,7 @@ internal fun ShowsRow(shows: List<Show>, onClickShowDetail: (showId: Int) -> Uni
         LazyRow {
             itemsIndexed(shows) { index, show ->
                 ShowCard(
-                    posterImageUrl = show.poster_path.toImageUrl(),
+                    posterImageUrl = show.poster_path.toThumbnailImageUrl(),
                     title = show.retrieveTitle(),
                     isFirstCard = index == 0,
                     onCardClick = { onClickShowDetail(show.id) }
