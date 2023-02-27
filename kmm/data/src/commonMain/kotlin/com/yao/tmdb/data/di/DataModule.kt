@@ -4,6 +4,7 @@ import com.yao.tmdb.data.SharedConfig
 import com.yao.tmdb.data.platform.getKtorEngine
 import com.yao.tmdb.data.repo.TrendingRepository
 import com.yao.tmdb.data.repo.TrendingRepositoryImpl
+import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
 import io.ktor.client.*
 import io.ktor.client.plugins.*
@@ -20,11 +21,12 @@ fun dataModule() = module {
     single<HttpClient> {
         HttpClient(getKtorEngine()) {
             install(Logging) {
-                logger = Logger.DEFAULT
-                level = LogLevel.HEADERS
-                filter { request ->
-                    request.url.host.contains(SharedConfig.TMDB_DOMAIN)
+                logger = object : Logger {
+                    override fun log(message: String) {
+                        Napier.d(tag = "KtorClient", message = message, throwable = null)
+                    }
                 }
+                level = LogLevel.ALL
             }
             install(ContentNegotiation) {
                 json(Json {
@@ -51,10 +53,12 @@ fun dataModule() = module {
             }
         }.apply {
             plugin(HttpSend).intercept { request ->
-                Napier.v(tag = "KtorClient", message = "HttpSend")
-                Napier.v(tag = "KtorClient", message = request.body.toString())
+//                Napier.v(tag = "KtorClient", message = "HttpSend")
+//                Napier.v(tag = "KtorClient", message = request.body.toString())
                 execute(request)
             }
+        }.also {
+            Napier.base(DebugAntilog())
         }
     }
     singleOf(::TrendingRepositoryImpl) { bind<TrendingRepository>() }
