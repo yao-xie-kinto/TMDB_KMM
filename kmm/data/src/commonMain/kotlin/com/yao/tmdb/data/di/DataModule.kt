@@ -48,6 +48,7 @@ fun dataModule() = module {
                     parameters.apply {
                         append("api_key", SharedConfig.TMDB_API_KEY)
                         append("language", "en-US")
+                        append("include_adult", "false")
                     }
                 }
             }

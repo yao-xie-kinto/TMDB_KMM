@@ -5,13 +5,15 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.yao.tmdb.sharedui.feature.FavouriteScreen
+import com.yao.tmdb.sharedui.feature.SettingsScreen
 import com.yao.tmdb.sharedui.feature.HomeScreen
 import com.yao.tmdb.sharedui.feature.SearchScreen
 import io.github.aakira.napier.Napier
@@ -35,8 +37,12 @@ internal fun BottomNavigationView(rootNavigator: Navigator, viewModel: Applicati
                             modifier = Modifier.padding(bottom = SafeArea.current.value.calculateBottomPadding()),
                             icon = {
                                 Icon(
-                                    imageVector = Icons.Default.Home,
-                                    contentDescription = null
+                                    imageVector = when (tab) {
+                                        Tab.Home -> Icons.Default.Home
+                                        Tab.Search -> Icons.Default.Search
+                                        Tab.Settings -> Icons.Default.Settings
+                                    },
+                                    contentDescription = tab.toString()
                                 )
                             },
                             label = { Text(tab.toString()) },
@@ -70,8 +76,8 @@ internal fun BottomNavigationView(rootNavigator: Navigator, viewModel: Applicati
                 scene(tab.toString()) {
                     when (tab) {
                         Tab.Home -> HomeScreen(rootNavigator, viewModel.repository)
-                        Tab.Tab2 -> SearchScreen()
-                        Tab.Tab3 -> FavouriteScreen()
+                        Tab.Search -> SearchScreen(rootNavigator, viewModel.repository)
+                        Tab.Settings -> SettingsScreen()
                     }
                 }
             }
@@ -80,7 +86,7 @@ internal fun BottomNavigationView(rootNavigator: Navigator, viewModel: Applicati
 }
 
 enum class Tab {
-    Home, Tab2, Tab3,
+    Home, Search, Settings,
 }
 
 enum class FullScreen {

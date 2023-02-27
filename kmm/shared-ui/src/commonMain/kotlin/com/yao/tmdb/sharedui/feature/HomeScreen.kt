@@ -9,8 +9,10 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.yao.tmdb.data.model.Show
@@ -20,6 +22,7 @@ import com.yao.tmdb.sharedui.base.BaseAction
 import com.yao.tmdb.sharedui.base.BaseState
 import com.yao.tmdb.sharedui.component.RemoteImage
 import com.yao.tmdb.sharedui.component.RowSpacer
+import com.yao.tmdb.sharedui.theme.textAnimateColor
 import com.yao.tmdb.sharedui.util.toThumbnailImageUrl
 import io.github.aakira.napier.Napier
 import kotlinx.coroutines.flow.Flow
@@ -31,11 +34,10 @@ import moe.tlaster.precompose.navigation.Navigator
 internal fun HomeScreen(rootNavigator: Navigator, repository: Repository) {
     val (state, channel) = rememberPresenter { Presenter(repository, it) }
     HomeScrollingContent(
-        PaddingValues(0.dp), state,
-        {
-            rootNavigator.navigate(route = "/${FullScreen.ShowDetail}/$it")
-        },
-        {}
+        PaddingValues(0.dp),
+        state,
+        { rootNavigator.navigate(route = "/${FullScreen.ShowDetail}/$it") },
+        { rootNavigator.navigate(route = "/${FullScreen.ShowMore}/$it") }
     )
     channel.trySend(HomeContract.Action.Init)
 }
@@ -53,39 +55,27 @@ internal fun HomeScrollingContent(
             .animateContentSize(),
     ) {
         item {
-            TrendingsRow(state.trendingMovies)
+            ShowsRow("Trending", state.trendingMovies, onClickShowDetail, onClickShowMore)
         }
         item {
-            ShowsRow(state.topRatedMovies, onClickShowDetail)
+            ShowsRow("Top-rated", state.topRatedMovies, onClickShowDetail, onClickShowMore)
         }
         item {
-            ShowsRow(state.popularMovies, onClickShowDetail)
+            ShowsRow("Popular", state.popularMovies, onClickShowDetail, onClickShowMore)
         }
         item {
-            ShowsRow(state.popularDramas, onClickShowDetail)
+            ShowsRow("Upcoming", state.upcomingMovies, onClickShowDetail, onClickShowMore)
         }
     }
 }
 
 @Composable
-internal fun TrendingsRow(shows: List<Show>) {
-    Column {
-        LazyRow {
-            itemsIndexed(shows) { index, show ->
-                ShowCard(
-                    posterImageUrl = show.poster_path.toThumbnailImageUrl(),
-                    title = show.retrieveTitle(),
-                    isFirstCard = index == 0,
-//                onClick = { onItemClicked(tvShow.traktId) }
-                )
-            }
-        }
-        Text("More")
-    }
-}
-
-@Composable
-internal fun ShowsRow(shows: List<Show>, onClickShowDetail: (showId: Int) -> Unit) {
+internal fun ShowsRow(
+    showType: String,
+    shows: List<Show>,
+    onClickShowDetail: (showId: Int) -> Unit,
+    onClickShowMore: (showType: String) -> Unit
+) {
     Column {
         LazyRow {
             itemsIndexed(shows) { index, show ->
@@ -97,19 +87,54 @@ internal fun ShowsRow(shows: List<Show>, onClickShowDetail: (showId: Int) -> Uni
                 )
             }
         }
-        Text("More")
+        BottomRow("$showType", onClickShowMore)
     }
 }
 
 @Composable
-internal fun Presenter(
+internal fun BottomRow(type: String, onClickShowMore: (showType: String) -> Unit) {
+    Row(
+        modifier = Modifier
+            .padding(horizontal = 16.dp, vertical = 0.dp)
+            .fillMaxWidth(),
+        verticalAlignment = CenterVertically
+    ) {
+        Text(
+            text = type,
+            style = MaterialTheme.typography.h6,
+            fontWeight = FontWeight.W700
+        )
+        Spacer(Modifier.weight(1f))
+        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+            TextButton(
+                colors = ButtonDefaults.buttonColors(
+                    contentColor = MaterialTheme.colors.onBackground,
+                    backgroundColor = MaterialTheme.colors.secondary.copy(alpha = 0.2f)
+                ),
+                onClick = {
+                    onClickShowMore.invoke(type)
+                }
+            ) {
+                Text(
+                    text = "+ More",
+                    color = textAnimateColor(),
+                    style = MaterialTheme.typography.body1,
+                    fontWeight = FontWeight.W400
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun Presenter(
     repository: Repository,
     action: Flow<HomeContract.Action>,
 ): HomeContract.State {
     var trendingMovies: List<Show> by remember { mutableStateOf(emptyList()) }
     var topRatedMovies: List<Show> by remember { mutableStateOf(emptyList()) }
     var popularMovies: List<Show> by remember { mutableStateOf(emptyList()) }
-    var popularDramas: List<Show> by remember { mutableStateOf(emptyList()) }
+    var upcomingMovies: List<Show> by remember { mutableStateOf(emptyList()) }
 
     action.collectAction {
         when (this) {
@@ -117,7 +142,7 @@ internal fun Presenter(
                 trendingMovies = repository.getTrendingMovies()
                 topRatedMovies = repository.getTopRatedMovies()
                 popularMovies = repository.getPopularMovies()
-                popularDramas = repository.getPopularDramas()
+                upcomingMovies = repository.getUpcomingMovies()
             }
             else -> {}
         }
@@ -127,7 +152,7 @@ internal fun Presenter(
         trendingMovies = trendingMovies,
         topRatedMovies = topRatedMovies,
         popularMovies = popularMovies,
-        popularDramas = popularDramas
+        upcomingMovies = upcomingMovies
     )
 }
 
@@ -181,7 +206,6 @@ internal fun ShowCard(
             }
         }
 
-        Spacer(Modifier.height(8.dp))
     }
 
     RowSpacer(value = rowSpacer)
@@ -200,7 +224,7 @@ interface HomeContract {
         val trendingMovies: List<Show>,
         val topRatedMovies: List<Show>,
         val popularMovies: List<Show>,
-        val popularDramas: List<Show>
+        val upcomingMovies: List<Show>
     ) : BaseState()
 
 }

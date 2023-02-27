@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.yao.tmdb.sharedui.feature.DrawerScreen
 import com.yao.tmdb.sharedui.feature.ShowDetailScreen
+import com.yao.tmdb.sharedui.feature.ShowMoreScreen
 import kotlinx.coroutines.launch
 import moe.tlaster.precompose.navigation.NavHost
 import moe.tlaster.precompose.navigation.path
@@ -36,6 +37,7 @@ internal fun MainComposeView(viewModel: ApplicationViewModel) {
             ) {
                 val route = currentRoute ?: ""
                 TopAppBar(
+                    elevation = 8.dp,
                     modifier = Modifier.padding(
                         start = SafeArea.current.value.calculateStartPadding(LayoutDirection.Ltr),
                         top = SafeArea.current.value.calculateTopPadding(),
@@ -48,7 +50,18 @@ internal fun MainComposeView(viewModel: ApplicationViewModel) {
                                 .padding(end = 80.dp)
                                 .align(Alignment.Center),
                             textAlign = TextAlign.Center,
-                            text = route
+                            text = when (route) {
+                                Drawer.BottomNavigation.toString() -> "The Movies"
+                                else -> {
+                                    if (route.contains(FullScreen.ShowDetail.toString())) {
+                                        "Detail"
+                                    } else if (route.contains(FullScreen.ShowMore.toString())) {
+                                        "More"
+                                    } else {
+                                        route
+                                    }
+                                }
+                            }
                         )
                     },
                     navigationIcon = {
@@ -106,7 +119,13 @@ internal fun MainComposeView(viewModel: ApplicationViewModel) {
             scene(route = "/${FullScreen.ShowDetail}/{id}?") { backStackEntry ->
                 val id: Int? = backStackEntry.path<Int>("id")
                 id?.let {
-                    ShowDetailScreen(it)
+                    ShowDetailScreen(viewModel.repository, it)
+                }
+            }
+            scene(route = "/${FullScreen.ShowMore}/{type}?") { backStackEntry ->
+                val type: String? = backStackEntry.path<String>("type")
+                type?.let {
+                    ShowMoreScreen(navigator, viewModel.repository, it)
                 }
             }
         }

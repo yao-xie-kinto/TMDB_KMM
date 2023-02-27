@@ -2,9 +2,6 @@ package com.yao.tmdb.android
 
 import android.graphics.Color
 import android.os.Bundle
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import com.yao.tmdb.sharedui.Android
 import com.yao.tmdb.sharedui.ApplicationViewModel
 import com.yao.tmdb.sharedui.RootView
@@ -17,38 +14,11 @@ class MainActivity : PreComposeActivity() {
     private val applicationViewModel: ApplicationViewModel by inject()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // has to be set in code or in theme
         window.decorView.setBackgroundColor(Color.WHITE)
-        window.statusBarColor = Color.parseColor("#cc7000")
+        window.statusBarColor = Color.DKGRAY
         Android.context = this
-
-//        setContent {
-//            MyApplicationTheme {
-//                Surface(
-//                    modifier = Modifier.fillMaxSize(),
-//                    color = MaterialTheme.colors.background
-//                ) {
-//                    GreetingView("Hello, Android!")
-//                }
-//            }
-//        }
-
-
         setContent {
             RootView(applicationViewModel)
         }
-    }
-}
-
-@Composable
-fun GreetingView(text: String) {
-    Text(text = text)
-}
-
-@Preview
-@Composable
-fun DefaultPreview() {
-    MyApplicationTheme {
-        GreetingView("Hello, Android!")
     }
 }

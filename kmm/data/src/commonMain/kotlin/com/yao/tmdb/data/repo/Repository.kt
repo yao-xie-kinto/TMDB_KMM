@@ -18,6 +18,7 @@ interface Repository {
     suspend fun getTopRatedMovies(): List<Show>
     suspend fun getPopularMovies(): List<Show>
     suspend fun getUpcomingMovies(): List<Show>
+    suspend fun searchMovies(keyword: String): List<Show>
 
     //TV
     suspend fun getDramaDetail(id: Int): ShowDetail
@@ -67,6 +68,13 @@ class RepositoryImpl(private val httpClient: HttpClient) : Repository {
 
     override suspend fun getUpcomingMovies(): List<Show> {
         val results: ShowResponse = getShowList("movie", "upcoming").body()
+        return results.results
+    }
+
+    override suspend fun searchMovies(keyword: String): List<Show> {
+        val results: ShowResponse =
+            httpClient.get(SharedConfig.TMDB_API_VERSION.plus("/search/movie?query=$keyword"))
+                .body()
         return results.results
     }
 
