@@ -18,9 +18,3 @@ internal fun Loading() {
         LinearProgressIndicator(color = Color(0xFFFF8C00))
     }
 }
-
-//@Preview(showSystemUi = true, showBackground = true)
-//@Composable
-//fun Loading_Preview() {
-//    Loading()
-//}

@@ -1,7 +1,11 @@
-package com.yao.tmdb.sharedui.feature
+package com.yao.tmdb.sharedui.ui
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -90,12 +94,18 @@ private fun HeaderContent(data: ShowDetail) {
                 )
             }
     ) {
-        RemoteImage(
-            imageUrl = data?.poster_path?.toOriginalImageUrl()
-                ?: data?.backdrop_path.toOriginalImageUrl(),
-            contentDescription = "",
-            modifier = Modifier.fillMaxSize()
-        )
+        AnimatedVisibility(
+            visible = true,
+            enter = fadeIn(spring(stiffness = Spring.DampingRatioHighBouncy)),
+            exit = fadeOut()
+        ) {
+            RemoteImage(
+                imageUrl = data?.poster_path?.toOriginalImageUrl()
+                    ?: data?.backdrop_path.toOriginalImageUrl(),
+                contentDescription = "",
+                modifier = Modifier.fillMaxSize()
+            )
+        }
         Box(
             modifier = Modifier
                 .fillMaxSize()

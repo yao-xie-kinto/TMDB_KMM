@@ -1,4 +1,4 @@
-package com.yao.tmdb.sharedui.feature
+package com.yao.tmdb.sharedui.ui
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.clickable

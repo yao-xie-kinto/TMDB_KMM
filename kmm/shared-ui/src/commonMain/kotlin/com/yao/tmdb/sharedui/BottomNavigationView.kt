@@ -13,9 +13,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.yao.tmdb.sharedui.feature.SettingsScreen
-import com.yao.tmdb.sharedui.feature.HomeScreen
-import com.yao.tmdb.sharedui.feature.SearchScreen
+import com.yao.tmdb.sharedui.ui.SettingsScreen
+import com.yao.tmdb.sharedui.ui.HomeScreen
+import com.yao.tmdb.sharedui.ui.SearchScreen
 import io.github.aakira.napier.Napier
 import moe.tlaster.precompose.navigation.NavHost
 import moe.tlaster.precompose.navigation.Navigator

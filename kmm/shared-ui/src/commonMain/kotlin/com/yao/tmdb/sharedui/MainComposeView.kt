@@ -13,9 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.yao.tmdb.sharedui.feature.DrawerScreen
-import com.yao.tmdb.sharedui.feature.ShowDetailScreen
-import com.yao.tmdb.sharedui.feature.ShowMoreScreen
+import com.yao.tmdb.sharedui.ui.DrawerScreen
+import com.yao.tmdb.sharedui.ui.ShowDetailScreen
+import com.yao.tmdb.sharedui.ui.ShowMoreScreen
 import kotlinx.coroutines.launch
 import moe.tlaster.precompose.navigation.NavHost
 import moe.tlaster.precompose.navigation.path
