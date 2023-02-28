@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import com.yao.tmdb.sharedui.viewmodel.ApplicationViewModel
 import com.yao.tmdb.sharedui.ui.DrawerScreen
 import com.yao.tmdb.sharedui.ui.ShowDetailScreen
 import com.yao.tmdb.sharedui.ui.ShowMoreScreen

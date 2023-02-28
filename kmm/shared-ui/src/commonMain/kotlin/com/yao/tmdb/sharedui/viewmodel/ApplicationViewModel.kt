@@ -1,4 +1,4 @@
-package com.yao.tmdb.sharedui
+package com.yao.tmdb.sharedui.viewmodel
 
 import com.yao.tmdb.data.repo.Repository
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel

@@ -22,11 +22,6 @@ kotlin {
             dependencies {
                 implementation(project(":kmm:data"))
                 implementation(project(":kmm:domain"))
-                implementation(project(":kmm:feature:base"))
-                implementation(project(":kmm:feature:home"))
-                implementation(project(":kmm:feature:search"))
-                implementation(project(":kmm:feature:favourite"))
-                implementation(project(":kmm:feature:settings"))
                 implementation(libs.bundles.common)
                 api(compose.ui)
                 api(compose.foundation)

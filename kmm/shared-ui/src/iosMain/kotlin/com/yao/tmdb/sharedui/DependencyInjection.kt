@@ -1,6 +1,7 @@
 package com.yao.tmdb.sharedui
 
 import com.yao.tmdb.domain.di.initKoin
+import com.yao.tmdb.sharedui.viewmodel.ApplicationViewModel
 import com.yao.tmdb.sharedui.di.applicationViewModels
 import org.koin.core.Koin
 import platform.Foundation.NSBundle

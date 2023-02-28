@@ -2,6 +2,7 @@ package com.yao.tmdb.sharedui
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.unit.dp
+import com.yao.tmdb.sharedui.viewmodel.ApplicationViewModel
 import moe.tlaster.precompose.PreComposeApplication
 import org.jetbrains.skiko.SystemTheme
 import org.jetbrains.skiko.currentSystemTheme

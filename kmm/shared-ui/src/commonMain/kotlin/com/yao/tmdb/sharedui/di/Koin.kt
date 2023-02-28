@@ -1,6 +1,6 @@
 package com.yao.tmdb.sharedui.di
 
-import com.yao.tmdb.sharedui.ApplicationViewModel
+import com.yao.tmdb.sharedui.viewmodel.ApplicationViewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
 

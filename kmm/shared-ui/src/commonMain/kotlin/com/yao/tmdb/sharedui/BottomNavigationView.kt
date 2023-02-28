@@ -13,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import com.yao.tmdb.sharedui.viewmodel.ApplicationViewModel
 import com.yao.tmdb.sharedui.ui.SettingsScreen
 import com.yao.tmdb.sharedui.ui.HomeScreen
 import com.yao.tmdb.sharedui.ui.SearchScreen

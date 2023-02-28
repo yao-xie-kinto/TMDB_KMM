@@ -28,12 +28,6 @@ include(
     ":kmm:data",
     //Domain
     ":kmm:domain",
-    //Features
-    ":kmm:feature:base",
-    ":kmm:feature:home",
-    ":kmm:feature:search",
-    ":kmm:feature:favourite",
-    ":kmm:feature:settings",
     //UI Wrapper
     ":kmm:shared-ui"
 )

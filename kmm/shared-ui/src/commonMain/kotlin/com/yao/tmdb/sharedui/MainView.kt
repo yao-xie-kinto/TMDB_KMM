@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.mutableStateOf
+import com.yao.tmdb.sharedui.viewmodel.ApplicationViewModel
 import com.yao.tmdb.sharedui.theme.Theme
 
 internal val darkModeState = mutableStateOf(false)

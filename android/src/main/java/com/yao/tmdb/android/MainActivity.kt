@@ -3,7 +3,7 @@ package com.yao.tmdb.android
 import android.graphics.Color
 import android.os.Bundle
 import com.yao.tmdb.sharedui.Android
-import com.yao.tmdb.sharedui.ApplicationViewModel
+import com.yao.tmdb.sharedui.viewmodel.ApplicationViewModel
 import com.yao.tmdb.sharedui.RootView
 import moe.tlaster.precompose.lifecycle.PreComposeActivity
 import moe.tlaster.precompose.lifecycle.setContent
