@@ -58,7 +58,7 @@ internal fun HomeScrollingContent(
             ShowsRow("Trending", state.trendingMovies, onClickShowDetail, onClickShowMore)
         }
         item {
-            ShowsRow("Top-rated", state.topRatedMovies, onClickShowDetail, onClickShowMore)
+            ShowsRow("Top-Rated", state.topRatedMovies, onClickShowDetail, onClickShowMore)
         }
         item {
             ShowsRow("Popular", state.popularMovies, onClickShowDetail, onClickShowMore)

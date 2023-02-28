@@ -71,7 +71,7 @@ private fun Presenter(
                     "Trending" -> {
                         data = repository.getTrendingMovies()
                     }
-                    "Top-rated" -> {
+                    "Top-Rated" -> {
                         data = repository.getTopRatedMovies()
                     }
                     "Popular" -> {
