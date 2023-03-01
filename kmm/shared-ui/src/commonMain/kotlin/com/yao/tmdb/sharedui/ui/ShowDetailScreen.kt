@@ -55,8 +55,6 @@ internal fun ShowDetailScreen(repository: Repository, id: Int) {
     ShowDetailContent(
         PaddingValues(0.dp),
         state
-//        {},
-//        {}
     )
     channel.trySend(ShowDetailContract.Action.Init)
 }
